@@ -9,16 +9,13 @@
 <body>
     <p>
         <?php
-        // 昇順・降順の切り替えが可能なソート関数
-        function sort_2way(array $data, string $order) {
-            // ソート方向によって処理を切り替え
-            if ($order === 'asc') {
-                sort($data);  // 昇順ソート（キーの紐付けなし）
-            } elseif ($order === 'desc') {
-                rsort($data); // 降順ソート（キーの紐付けなし）
+        // 昇順または降順で配列をソートして表示する関数
+        function sort_2way(array $data, bool $order) {
+            // 昇順 (TRUE) か降順 (FALSE) かで処理を分ける
+            if ($order) {
+                sort($data); // 昇順ソート（キーと値の紐づけなし）
             } else {
-                echo "ソート順が正しくありません。'asc' または 'desc' を指定してください。<br>";
-                return;
+                rsort($data); // 降順ソート（キーと値の紐づけなし）
             }
 
             // 結果を1行ずつ表示
@@ -28,12 +25,17 @@
         }
 
         // テスト用の配列
-        $sample_array = [8, 3, 5, 1, 9];
+        $sample_array = [10, 3, 7, 1, 9];
 
-        // 関数の呼び出し（'asc' または 'desc' を指定）
-        sort_2way($sample_array, 'asc');
+        // 関数の呼び出し（昇順: TRUE）
+        echo "昇順ソート:<br>";
+        sort_2way($sample_array, TRUE);
+
         echo "<hr>";
-        sort_2way($sample_array, 'desc');
+
+        // 関数の呼び出し（降順: FALSE）
+        echo "降順ソート:<br>";
+        sort_2way($sample_array, FALSE);
         ?>
     </p>
 </body>
