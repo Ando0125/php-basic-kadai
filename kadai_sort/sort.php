@@ -9,28 +9,31 @@
 <body>
     <p>
         <?php
-        // ソートと表示を行う関数
-        function sort_and_display(array $data) {
-            // 配列に要素があるかチェック
-            if (count($data) > 0) {
-                // 値でソート（キーとの紐づけを維持しない）
-                sort($data);
-
-                // 1行ずつ出力
-                foreach ($data as $value) {
-                    echo $value . "<br>";
-                }
+        // 昇順・降順の切り替えが可能なソート関数
+        function sort_2way(array $data, string $order) {
+            // ソート方向によって処理を切り替え
+            if ($order === 'asc') {
+                sort($data);  // 昇順ソート（キーの紐付けなし）
+            } elseif ($order === 'desc') {
+                rsort($data); // 降順ソート（キーの紐付けなし）
             } else {
-                // 配列が空の場合のメッセージ
-                echo "配列が空です。<br>";
+                echo "ソート順が正しくありません。'asc' または 'desc' を指定してください。<br>";
+                return;
+            }
+
+            // 結果を1行ずつ表示
+            foreach ($data as $value) {
+                echo $value . "<br>";
             }
         }
 
         // テスト用の配列
-        $sample_array = [5, 2, 9, 1, 7];
+        $sample_array = [8, 3, 5, 1, 9];
 
-        // 関数を実行
-        sort_and_display($sample_array);
+        // 関数の呼び出し（'asc' または 'desc' を指定）
+        sort_2way($sample_array, 'asc');
+        echo "<hr>";
+        sort_2way($sample_array, 'desc');
         ?>
     </p>
 </body>
